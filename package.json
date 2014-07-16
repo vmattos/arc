@@ -1,0 +1,19 @@
+{
+  "name": "parsac-node",
+  "version": "0.0.0",
+  "description": "\"Parser de Markdown para AFC escrito em Node.js\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vmattos/parsac-node.git"
+  },
+  "author": "Vitor Mattos Cavalcanti <vitor.mattos@caelum.com.br>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vmattos/parsac-node/issues"
+  },
+  "homepage": "https://github.com/vmattos/parsac-node"
+}
