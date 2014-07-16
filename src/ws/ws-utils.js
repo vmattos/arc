@@ -1,6 +1,6 @@
 var wsUtils = {};
 
-wsUtils.getUrls function(op) {
+wsUtils.getUrls =  function(op) {
   var urls = []; 
 
   for(course in op.courses) {
