@@ -5,8 +5,11 @@ MOCHA_RUNNER = $(MOCHA) --reporter $(REPORTER)
 UNIT_TESTS = test/unit/**/**/*Test.js
 CONSUMER_DRIVEN_TESTS = test/consumer-driven/**/**/*Test.js
 
-setup:
+setup: clean
 	mkdir ./AFC
+
+clean:
+	rm -rf AFC
 
 unit-test:
 	$(MOCHA_RUNNER) $(UNIT_TESTS)
