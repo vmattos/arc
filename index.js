@@ -1,5 +1,6 @@
 var wsUtils = require('./src/ws/ws-utils.js')
   , xmlUtils = require('./src/xml/xml-utils')
+  , afcUtils = require('./src/afc/afc-utils')
   , options = require('./src/ws/ws-options')
   , util = require('util')
   , EventEmitter = require('events').EventEmitter
@@ -10,7 +11,8 @@ var wsUtils = require('./src/ws/ws-utils.js')
 var CourseParams = function() {
   this.courseName =  options.courseName || courses[0],
   this.xmls = [],
-  this.afcs = []
+  this.afcs = [],
+  this.totalSections = []
 };
 
 util.inherits(CourseParams, EventEmitter);
@@ -22,6 +24,19 @@ wsUtils.fillCourseXmlList(courseParams, urls, options, courses, true);
 courseParams.on('newXml', function() { 
 
   if(courses.length == this.xmls.length) {
-    this.afcs = xmlUtils.parse(courseParams);
+    xmlUtils.parse(courseParams);
+
+    courseParams.afcs.forEach(function(afc) {
+      var sections = afc.curso.secoes[0].secao;
+
+      sections.forEach(function(section) {
+        courseParams.totalSections.push(section);
+      });
+    });
+
+    console.log(courseParams.totalSections.length);
+
+    afcUtils.createDirectory(courseParams);
+    afcUtils.createAfcs(courseParams);
   }
 });
