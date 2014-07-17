@@ -17,11 +17,11 @@ wsUtils.getUrls =  function(op) {
 
 wsUtils.fetchXml = function(courseParams, urls, options, courses) {
   var verbose = arguments[4];
-  var atual = i;
-  var url = urls[atual]
+  var actual = i;
+  var url = urls[actual]
   var xml = ''
   var curl = spawn('curl', [url]);
-  var currentCourse = courses[atual];
+  var currentCourse = courses[actual];
 
   if(verbose)
     console.log('Fetching XML for ' + currentCourse + ' (' + url + ')');
