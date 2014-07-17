@@ -1,10 +1,16 @@
+MOCHA = ./node_modules/.bin/mocha
 REPORTER = spec
-TESTS = test/**/**
+MOCHA_RUNNER = $(MOCHA) --reporter $(REPORTER)
 
-test:
-	./node_modules/.bin/mocha \
-		--reporter $(REPORTER) \
-		$(TESTS)
+UNIT_TESTS = test/unit/**/**/*Test.js
+CONSUMER_DRIVEN_TESTS = test/consumer-driven/**/**/*Test.js
+
+
+unit-test:
+	$(MOCHA_RUNNER) $(UNIT_TESTS)
+
+consumer-driven-test:
+	$(MOCHA_RUNNER) $(CONSUMER_DRIVEN_TESTS)
 
 install:
 	npm install
@@ -12,4 +18,4 @@ install:
 build: install test
 	git update-index --assume-unchanged setup-ws.sh
 
-.PHONY: test setup install build
+.PHONY: unit-test setup install build
