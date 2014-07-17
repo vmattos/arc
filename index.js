@@ -34,8 +34,6 @@ courseParams.on('newXml', function() {
       });
     });
 
-    console.log(courseParams.totalSections.length);
-
     afcUtils.createDirectory(courseParams);
     afcUtils.createAfcs(courseParams);
   }
