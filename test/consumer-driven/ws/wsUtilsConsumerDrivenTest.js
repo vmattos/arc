@@ -39,7 +39,7 @@ describe('wsUtils consumer-driven tests', function(){
   server.listen(port, function() {
   
 
-  describe('fillCourseXmlList', function() {
+    describe('fillCourseXmlList', function() {
       
 
       it('should fill courseParams xml list', function() {
