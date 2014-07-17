@@ -36,5 +36,9 @@ describe('wsUtils', function() {
       var urls = wsUtils.getUrls(wsOptions);
       urls.should.have.length(2);
     });
+
+    it('should throw error if no course was found', function() {
+      wsUtils.getUrls.bind(null, wsOptions).should.throw('No course was found.');
+    }); 
   });
 });
