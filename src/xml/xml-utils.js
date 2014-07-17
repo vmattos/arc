@@ -20,7 +20,7 @@ xmlUtils.parse = function(courseParams) {
         var explanation = secao.explicacao[0];
 
         explanation = xmlUtils.parseCode(explanation);
-        explanation = parser.parseItalico(explanation);
+        explanation = parser.parseItalic(explanation);
 
         secao.explicacao[0] = explanation;
       });

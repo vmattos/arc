@@ -2,7 +2,7 @@ var md = require('node-markdown').Markdown;
 
 parser = {};
 
-parser.parseItalico = function(string) {
+parser.parseItalic = function(string) {
   string = md(string, true, "em");
 
   var italicRegexp = /<em>(.*)<\/em>/g;
