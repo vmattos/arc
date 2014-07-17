@@ -1,5 +1,5 @@
 var should = require('should')
-  , wsUtils = require('../../src/ws/ws-utils.js');
+  , wsUtils = require('../../../src/ws/ws-utils.js');
 
 describe('wsUtils', function() {
 
