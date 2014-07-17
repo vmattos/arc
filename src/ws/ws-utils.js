@@ -7,8 +7,6 @@ wsUtils.getUrls =  function(op) {
     var course = op.courses[course];
     var url = op.alura + op.path + course + op.hash;
     urls.push(url);
-
-    console.log(course + ' url: ' + url);
   }
 
   return urls;
