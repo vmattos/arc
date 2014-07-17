@@ -16,12 +16,15 @@ wsUtils.getUrls =  function(op) {
 }
 
 wsUtils.fetchXml = function(courseParams, urls, options, courses) {
+  var verbose = arguments[4];
   var atual = i;
   var url = urls[atual]
   var xml = ''
   var curl = spawn('curl', [url]);
+  var currentCourse = courses[atual];
 
-  console.log('Fetching XML for ' + courses[atual] + ' (' + url + ')');
+  if(verbose)
+    console.log('Fetching XML for ' + currentCourse + ' (' + url + ')');
 
   curl.stdout.on('data', function(data) {
     xml += data;
@@ -30,9 +33,10 @@ wsUtils.fetchXml = function(courseParams, urls, options, courses) {
   curl.on('close', function(code) {
     courseParams.xmls.push(xml);
 
-    code == 0 ? 
-      console.log('Finished receiving XML for ' + courses[atual])
-      : console.log('Child process (curl) exited with code ' + 0);
+    if(verbose)
+      code == 0 ? 
+        console.log('Finished receiving XML for ' + currentCourse)
+        : console.log('Child process (curl) exited with code ' + 0);
   }); 
 }
 
