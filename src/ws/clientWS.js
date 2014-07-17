@@ -1,7 +1,7 @@
 var spawn = require('child_process').spawn
   , wsUtils = require('./ws-utils.js')
   , options = require('./ws-options')
-  , courses = Object.keys(options.courses);
+  , courses = Object.keys(options.courses)
   , urls = wsUtils.getUrls(options);
 
 // Params to generate full AFC
