@@ -6,7 +6,7 @@ UNIT_TESTS = test/unit/**/**/*Test.js
 CONSUMER_DRIVEN_TESTS = test/consumer-driven/**/**/*Test.js
 
 setup: clean
-	mkdir ./AFC
+	mkdir AFC
 
 clean:
 	rm -rf AFC
@@ -22,7 +22,7 @@ test: unit-test consumer-driven-test
 install:
 	npm install
 
-build: install test
+build: install test setup
 	git update-index --assume-unchanged setup-ws.sh
 
 .PHONY: unit-test setup install build setup
