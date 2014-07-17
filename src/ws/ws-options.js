@@ -5,7 +5,8 @@ var wsOptions = {
 
   courses: {
     module1: "php-mysql-e-fundamentos-da-web",
-    module2: "php-mysql-e-fundamentos-da-web-parte-2"
+    module2: "php-mysql-e-fundamentos-da-web-parte-2",
+    module3: "codeigniter"
   },
 
   //Optional: Name for the full-course 
