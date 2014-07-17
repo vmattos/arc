@@ -4,9 +4,9 @@ var wsUtils = require('./ws-utils.js')
   , urls = wsUtils.getUrls(options);
 
 // Params to generate full AFC
-var courseParms = {
+var courseParams = {
   courseName: options.courseName || courses[0],
   xmls: []
 };
 
-wsUtils.fillCourseXmlList(courseParms, urls, options, courses, true);
+wsUtils.fillCourseXmlList(courseParams, urls, options, courses, true);
