@@ -15,28 +15,30 @@ wsUtils.getUrls =  function(op) {
   return urls;
 }
 
+wsUtils.fetchXml = function(courseParams, urls, options, courses) {
+  var atual = i;
+  var url = urls[atual]
+  var xml = ''
+  var curl = spawn('curl', [url]);
+
+  console.log('Fetching XML for ' + courses[atual] + '(' + url + ')');
+
+  curl.stdout.on('data', function(data) {
+    xml += data;
+  });
+
+  curl.on('close', function(code) {
+    courseParams.xmls.push(xml);
+
+    code == 0 ? 
+      console.log('Finished receiving XML for ' + courses[atual])
+      : console.log('Child process (curl) exited with code ' + 0);
+  }); 
+}
+
 wsUtils.fillCourseXmlList = function(courseParams, urls, options, courses) {
   for(i in urls) {
-    (function() {
-      var atual = i;
-      var url = urls[atual]
-      var xml = ''
-      var curl = spawn('curl', [url]);
-
-      console.log('Fetching XML for ' + courses[atual] + '(' + url + ')');
-
-      curl.stdout.on('data', function(data) {
-        xml += data;
-      });
-
-      curl.on('close', function(code) {
-        courseParams.xmls.push(xml);
-        
-        code == 0 ? 
-          console.log('Finished receiving XML for ' + courses[atual])
-          : console.log('Child process (curl) exited with code ' + 0);
-      }); 
-    })();
+    this.fetchXml.apply(this, arguments);
   }
 }
 
