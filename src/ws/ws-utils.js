@@ -1,5 +1,5 @@
-var spawn = require('child_process').spawn;
-var wsUtils = {};
+var spawn = require('child_process').spawn
+  , wsUtils = {};
 
 wsUtils.getUrls =  function(op) {
   var urls = []; 
