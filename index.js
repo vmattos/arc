@@ -1,5 +1,5 @@
-var wsUtils = require('./ws-utils.js')
-  , options = require('./ws-options')
+var wsUtils = require('./src/ws/ws-utils.js')
+  , options = require('./src/ws/ws-options')
   , util = require('util')
   , EventEmitter = require('events').EventEmitter
   , courses = Object.keys(options.courses)
