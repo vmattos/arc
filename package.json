@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/vmattos/arc/issues"
   },
-  "homepage": "https://github.com/vmattos/arc"
+  "homepage": "https://github.com/vmattos/arc",
+  "devDependencies": {
+    "mocha": "^1.20.1",
+    "should": "^4.0.4"
+  }
 }
