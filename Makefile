@@ -1,5 +1,5 @@
 REPORTER = spec
-TESTS = test/**/*.js
+TESTS = test/**/**
 
 setup: 
 	sudo sh ./setup-ws.sh
