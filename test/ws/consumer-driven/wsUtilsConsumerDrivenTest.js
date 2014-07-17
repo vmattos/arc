@@ -6,7 +6,7 @@ var should = require('should')
 
 server.listen(port, function() {
   
-  describe('wsUtils', function(){
+  describe('wsUtils consumer-driven tests', function(){
 
     it('should have fillCourseXmlList function', function() {
       wsUtils.should.have.property('fillCourseXmlList');
