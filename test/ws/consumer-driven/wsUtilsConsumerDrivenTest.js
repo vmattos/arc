@@ -43,6 +43,9 @@ server.listen(port, function() {
         courseParams.xmls.should.not.empty;
       });
 
+      it('should have a lenght of 2', function() {
+        courseParams.xmls.should.have.length(2);
+      });
     });
 
   });
