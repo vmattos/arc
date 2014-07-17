@@ -15,4 +15,4 @@ install:
 build: setup install test
 	git update-index --assume-unchanged setup-ws.sh
 
-.PHONY: test setup
+.PHONY: test setup install build
