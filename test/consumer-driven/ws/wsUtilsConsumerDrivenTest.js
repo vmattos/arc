@@ -28,7 +28,7 @@ var courseParams = {}
       urls = wsUtils.getUrls(wsOptions);
       courses = Object.keys(wsOptions.courses);
 
-      wsUtils.fillCourseXmlList(courseParams, urls, wsOptions, courses);
+      
 
 describe('wsUtils consumer-driven tests', function(){
 
@@ -38,6 +38,7 @@ describe('wsUtils consumer-driven tests', function(){
 
   server.listen(port, function() {
   
+    wsUtils.fillCourseXmlList(courseParams, urls, wsOptions, courses);
 
     describe('fillCourseXmlList', function() {
       
