@@ -46,7 +46,11 @@ describe('wsUtils consumer-driven tests', function(){
         courseParams.xmls.should.not.empty;
       });
 
-      it('should have a lenght of 2', function() {
+    });
+
+    describe('courseParams', function() {
+
+      it('should have xmls array with lenght 2', function() {
         courseParams.xmls.should.have.length(2);
       });
     });
