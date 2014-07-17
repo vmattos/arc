@@ -6,6 +6,10 @@ describe('xmlUtils', function() {
     xmlUtils.should.have.property('parse')
   });
 
+  it('should have a codeGroups property', function() {
+    xmlUtils.should.have.property('codeGroups');
+  });
+
   it('should have parseCode function', function() {
     xmlUtils.should.have.property('parseCode')
   });
