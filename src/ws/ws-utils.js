@@ -21,7 +21,7 @@ wsUtils.fetchXml = function(courseParams, urls, options, courses) {
   var xml = ''
   var curl = spawn('curl', [url]);
 
-  console.log('Fetching XML for ' + courses[atual] + '(' + url + ')');
+  console.log('Fetching XML for ' + courses[atual] + ' (' + url + ')');
 
   curl.stdout.on('data', function(data) {
     xml += data;
