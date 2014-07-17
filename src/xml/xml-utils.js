@@ -21,6 +21,7 @@ xmlUtils.parse = function(courseParams) {
 
         explanation = xmlUtils.parseCode(explanation);
         explanation = parser.parseItalic(explanation);
+        explanation = parser.parseMiniCode(explanation);
 
         secao.explicacao[0] = explanation;
       });
@@ -53,6 +54,3 @@ xmlUtils.parseCode = function(string) {
 }
 
 module.exports = xmlUtils;
-
-
-

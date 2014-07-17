@@ -12,7 +12,12 @@ parser.parseItalic = function(string) {
     string = string.replace(italicRegexp, "::$1::");
   }
 
-  console.log(string);
+  return string;
+}
+
+parser.parseMiniCode = function(string) {
+  
+  string = string.replace('`', '%%')
 
   return string;
 }
