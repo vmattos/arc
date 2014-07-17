@@ -35,6 +35,6 @@ courseParams.on('newXml', function() {
     });
 
     afcUtils.createDirectory(courseParams);
-    afcUtils.createAfcs(courseParams)
-;  }
+    afcUtils.createAfcs(courseParams);  
+  }
 });
