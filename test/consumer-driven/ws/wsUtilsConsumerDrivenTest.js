@@ -4,16 +4,7 @@ var should = require('should')
   , port = process.env.PORT || 5000
   , server = fakeWs.createServer();
 
-server.listen(port, function() {
-  
-  describe('wsUtils consumer-driven tests', function(){
-
-    it('should have fillCourseXmlList function', function() {
-      wsUtils.should.have.property('fillCourseXmlList');
-    });
-
-    describe('fillCourseXmlList', function() {
-      var courseParams = {}
+var courseParams = {}
         , wsOptions = {}
         , urls = []
         , courses = [];
@@ -38,6 +29,18 @@ server.listen(port, function() {
       courses = Object.keys(wsOptions.courses);
 
       wsUtils.fillCourseXmlList(courseParams, urls, wsOptions, courses);
+
+describe('wsUtils consumer-driven tests', function(){
+
+  it('should have fillCourseXmlList function', function() {
+    wsUtils.should.have.property('fillCourseXmlList');
+  });
+
+  server.listen(port, function() {
+  
+
+  describe('fillCourseXmlList', function() {
+      
 
       it('should fill courseParams xml list', function() {
         courseParams.xmls.should.not.empty;
