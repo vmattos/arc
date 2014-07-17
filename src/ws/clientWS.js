@@ -9,4 +9,4 @@ var courseParms = {
   xmls: []
 };
 
-wsUtils.fillCourseXmlList(courseParms, urls, options, courses);
+wsUtils.fillCourseXmlList(courseParms, urls, options, courses, true);
