@@ -1,5 +1,6 @@
 var parseString = require('xml2js').parseString
   , util = require('util')
+  , parser = require('../parser/parser.js')
   , xmlUtils = {};
 
 xmlUtils.codeGroups = [];
@@ -8,6 +9,7 @@ xmlUtils.parse = function(courseParams) {
 
   for (i in courseParams.xmls) {
     xmlUtils.codeGroups = [];
+
 
     parseString(courseParams.xmls[i], function(err, result) {
       if (err) console.log(err);
@@ -18,6 +20,7 @@ xmlUtils.parse = function(courseParams) {
         var explanation = secao.explicacao[0];
 
         explanation = xmlUtils.parseCode(explanation);
+        explanation = parser.parseItalico(explanation);
 
         secao.explicacao[0] = explanation;
       });

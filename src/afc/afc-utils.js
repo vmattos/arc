@@ -4,7 +4,7 @@ var fs = require('fs')
 
 afcUtils.createDirectory = function(courseParams) {
   var courseName = courseParams.courseName;
-  var path = './AFC/' + courseName;
+  var path = 'AFC/' + courseName;
 
   courseParams.path = path;
   fs.mkdir( path, function(err) {
