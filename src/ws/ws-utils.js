@@ -36,9 +36,15 @@ wsUtils.fetchXml = function(courseParams, urls, options, courses) {
         console.log('Finished receiving XML for ' + currentCourse)
         : console.log('Child process (curl) exited with code ' + 0);
 
+
     courseParams.xmls.push(xml);
 
-    courseParams.emit('newXml')
+    try {
+      courseParams.emit('newXml');
+    } catch(e) {
+      // Do nothing
+    }
+    
   }); 
 }
 
