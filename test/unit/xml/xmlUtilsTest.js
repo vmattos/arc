@@ -18,5 +18,12 @@ describe('xmlUtils', function() {
 
       string.should.equal('[code][/code]');
     });
+
+    it('should extract code content', function() {
+      var string = '```String xpto = "Johnny Quest"```';
+      string = xmlUtils.parseCode(string);
+
+      string.should.not.containEql('Johnny Quest');
+    });
   });
 });
