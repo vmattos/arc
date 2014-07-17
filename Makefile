@@ -12,6 +12,8 @@ unit-test:
 consumer-driven-test:
 	$(MOCHA_RUNNER) $(CONSUMER_DRIVEN_TESTS)
 
+test: unit-test consumer-driven-test
+
 install:
 	npm install
 
