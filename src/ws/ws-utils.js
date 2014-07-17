@@ -37,6 +37,8 @@ wsUtils.fetchXml = function(courseParams, urls, options, courses) {
         : console.log('Child process (curl) exited with code ' + 0);
 
     courseParams.xmls.push(xml);
+
+    courseParams.emit('newXml')
   }); 
 }
 
