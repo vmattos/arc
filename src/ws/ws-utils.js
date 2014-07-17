@@ -31,12 +31,12 @@ wsUtils.fetchXml = function(courseParams, urls, options, courses) {
   });
 
   curl.on('close', function(code) {
-    courseParams.xmls.push(xml);
-
     if(verbose)
       code == 0 ? 
         console.log('Finished receiving XML for ' + currentCourse)
         : console.log('Child process (curl) exited with code ' + 0);
+
+    courseParams.xmls.push(xml);
   }); 
 }
 
