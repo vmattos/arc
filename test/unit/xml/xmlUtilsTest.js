@@ -9,4 +9,14 @@ describe('xmlUtils', function() {
   it('should have parseCode function', function() {
     xmlUtils.should.have.property('parseCode')
   });
+
+  describe('parseCode', function() {
+
+    it('should replace markdown markers by [code] tag', function() {
+      var string = '``````';
+      string = xmlUtils.parseCode(string);
+
+      string.should.equal('[code][/code]');
+    });
+  });
 });
