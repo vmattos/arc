@@ -18,7 +18,9 @@ parser.parseItalic = function(string) {
 
 parser.parseMiniCode = function(string) {
   
-  string = string.replace('`', '%%')
+  for (var i = 0; i < string.length; i++) {
+  	string = string.replace('`', '%%')
+  }
 
   return string;
 }
