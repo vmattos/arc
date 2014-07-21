@@ -25,6 +25,8 @@ afcUtils.createAfcs = function(courseParams) {
     
     var text = afcUtils.setText(secao);
 
+    text += afcUtils.setExercises(secao);
+
     fs.writeFile(path, new Buffer(text));
   });
 }
@@ -34,6 +36,59 @@ afcUtils.setText = function(section) {
   var text = chapter + section.explicacao[0];
 
   return text
+}
+
+afcUtils.setExercises = function(section) {
+  var sectionExercise = "[section Exercícios]\n";
+  var openTagExercise = "[exercise]\n";
+  var exercises = section.exercicios[0];
+  var answers = {};
+  var openExercises = exercises['exercicio-aberto'];
+  var multipleChoiceExercises = exercises['exercicio-multiplaEscolha'];
+
+  openExercises.forEach(function(exercise) {
+    var question = exercise.enunciado[0];
+  });
+
+
+  multipleChoiceExercises.forEach(function(exercise) {
+    var question = exercise.enunciado[0];
+    console.log(question);
+  });
+  // console.log(openExercises)
+  // for(var i in exercises) {
+  //   var exercise = exercises[i];
+
+  //   var tagChoices = "";
+  //   var openQuestion = "[question]\n";
+  //   var enunciation = exercise.enunciado;
+
+  //   if (!exercise.match("/aberto/")) {
+
+    //   var openList = "[list]\n";
+    //   var choices = exercise.alternativas[0];
+
+    //   tagChoices = openList;
+
+    //   choices.forEach(function(choice){
+    //     tagChoices += "* " + choice.texto + "\n";
+    //   });
+    //   var closeList = "[/list]\n";
+
+    //   tagChoices += closeList;
+    // }
+
+    // var closeQuestion = "[/question]\n"
+
+    // answers[exercise.numero] = exercise.resposta;
+  // }
+
+  // var closeTagExercise = "[/exercise]\n";
+
+  // var exerciseText = sectionExercise + openTagExercise + openQuestion + enunciation + 
+  //   tagChoices + closeQuestion + closeTagExercise;
+
+  return "";
 }
 
 module.exports = afcUtils;
