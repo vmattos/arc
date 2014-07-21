@@ -25,7 +25,9 @@ afcUtils.createAfcs = function(courseParams) {
     
     var text = afcUtils.setText(secao);
 
-    text += afcUtils.setExercises(secao);
+    var textExercises = afcUtils.setExercises(secao);
+
+    text = text + textExercises;
 
     fs.writeFile(path, new Buffer(text));
   });
@@ -35,60 +37,61 @@ afcUtils.setText = function(section) {
   var chapter = '[chapter ' + section.titulo[0] + ']\n\n';
   var text = chapter + section.explicacao[0];
 
-  return text
+  return text;
 }
 
 afcUtils.setExercises = function(section) {
+
   var sectionExercise = "[section Exercícios]\n";
   var openTagExercise = "[exercise]\n";
+
   var exercises = section.exercicios[0];
   var answers = {};
+
   var openExercises = exercises['exercicio-aberto'];
   var multipleChoiceExercises = exercises['exercicio-multiplaEscolha'];
 
-  openExercises.forEach(function(exercise) {
-    var question = exercise.enunciado[0];
+  var openQuestion = "[question]\n"
+  var questions = "";
+  var closeQuestion = "[/question]\n"
+
+  openExercises.forEach(function(openExercise) {
+
+    questions += openQuestion;
+
+    var description = openExercise.enunciado[0];
+
+    questions += description + closeQuestion;
+
+    answers[openExercise.numero] = openExercise.resposta;
+
   });
 
+  multipleChoiceExercises.forEach(function(multipleChoiceExercise) {
 
-  multipleChoiceExercises.forEach(function(exercise) {
-    var question = exercise.enunciado[0];
-    console.log(question);
+    questions += openQuestion;
+
+    var description = multipleChoiceExercise.enunciado[0];
+
+    var openList = "[list]\n";
+
+    var choices = multipleChoiceExercise.alternativas[0];
+
+    var tagChoices = openList;
+
+    choices.forEach(function(choice){
+      tagChoices += "* " + choice.texto + "\n";
+    });
+
+    questions += description + tagChoices + closeQuestion;
+
+    answers[multipleChoiceExercise.numero] = multipleChoiceExercise.resposta;
+
   });
-  // console.log(openExercises)
-  // for(var i in exercises) {
-  //   var exercise = exercises[i];
 
-  //   var tagChoices = "";
-  //   var openQuestion = "[question]\n";
-  //   var enunciation = exercise.enunciado;
+  var text = sectionExercise + openTagExercise + questions + closeTagExercise;
 
-  //   if (!exercise.match("/aberto/")) {
-
-    //   var openList = "[list]\n";
-    //   var choices = exercise.alternativas[0];
-
-    //   tagChoices = openList;
-
-    //   choices.forEach(function(choice){
-    //     tagChoices += "* " + choice.texto + "\n";
-    //   });
-    //   var closeList = "[/list]\n";
-
-    //   tagChoices += closeList;
-    // }
-
-    // var closeQuestion = "[/question]\n"
-
-    // answers[exercise.numero] = exercise.resposta;
-  // }
-
-  // var closeTagExercise = "[/exercise]\n";
-
-  // var exerciseText = sectionExercise + openTagExercise + openQuestion + enunciation + 
-  //   tagChoices + closeQuestion + closeTagExercise;
-
-  return "";
+  return text;
 }
 
 module.exports = afcUtils;
