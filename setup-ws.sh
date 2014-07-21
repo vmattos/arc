@@ -4,7 +4,7 @@ echo 'Exporting env variables'
 export ALURA_URL='INSERT URL'
 echo 'ALURA_URL: ' $ALURA_URL
 
-# Alura web service path. eg: /ws/tutorial
+# Alura web service path. eg: /ws/tutorial/
 export ALURA_PATH='INSERT PATH'
 echo 'ALURA_PATH: ' $ALURA_PATH
 
