@@ -30,7 +30,7 @@ afcUtils.createAfcs = function(courseParams) {
 }
 
 afcUtils.setText = function(section) {
-  var chapter = '[chapter ' + section.titulo[0] + ']';
+  var chapter = '[chapter ' + section.titulo[0] + ']\n\n';
   var text = chapter + section.explicacao[0];
 
   return text
