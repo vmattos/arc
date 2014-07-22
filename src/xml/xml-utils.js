@@ -69,7 +69,6 @@ xmlUtils.replaceCodes = function(string) {
   if(regex.test(string)) {
     var code = xmlUtils.codeGroups.shift();
     string = string.replace("[code][/code]", "[code]" + code + "[/code]");
-    console.log(string)
 
     if(regex.test(string)) {
       string = xmlUtils.replaceCodes(string);
