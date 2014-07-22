@@ -14,6 +14,7 @@ afcUtils.createDirectory = function(courseParams) {
 }
 
 afcUtils.createAfcs = function(courseParams) {
+
   var secoes = courseParams.totalSections;
 
   secoes.forEach(function(secao, index) {
@@ -37,6 +38,7 @@ afcUtils.createAfcs = function(courseParams) {
 }
 
 afcUtils.setText = function(section) {
+
   var chapter = '[chapter ' + section.titulo[0] + ']\n\n';
   var text = chapter + section.explicacao[0];
 
@@ -50,18 +52,19 @@ afcUtils.setExercises = function(section) {
   var closeTagExercise = "[/exercise]\n";
 
   var exercises = section.exercicios[0];
-  var answers = {};
 
   var openExercises = exercises['exercicio-aberto'];
   var multipleChoiceExercises = exercises['exercicio-multiplaEscolha'];
 
-
-
   var openQuestion = "[question]\n"
-  var questions = "";
   var closeQuestion = "\n[/question]\n"
 
+  var questions = "";
+
+  var answers = {};
+
   if(!!openExercises) {
+
     openExercises.forEach(function(openExercise) {
 
       questions += openQuestion;
@@ -77,6 +80,7 @@ afcUtils.setExercises = function(section) {
 
 
   if(!!multipleChoiceExercises) {
+    
     multipleChoiceExercises.forEach(function(multipleChoiceExercise) {
 
       questions += openQuestion;
