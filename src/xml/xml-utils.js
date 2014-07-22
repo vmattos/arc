@@ -21,6 +21,7 @@ xmlUtils.parse = function(courseParams) {
 
 
         explanation = xmlUtils.parseAfc(explanation);
+        explanation = xmlUtils.replaceCodes(explanation);
 
         secao.explicacao[0] = explanation;
       });
@@ -57,6 +58,23 @@ xmlUtils.parseAfc = function(string) {
   string = xmlUtils.parseCode(string);
   string = parser.parseMiniCode(string);
   string = parser.parseItalic(string);
+
+  return string;
+}
+
+xmlUtils.replaceCodes = function(string) {
+
+  var regex = /\[code\]\[\/code\]/;
+
+  if(regex.test(string)) {
+    var code = xmlUtils.codeGroups.shift();
+    string = string.replace("[code][/code]", "[code]" + code + "[/code]");
+    console.log(string)
+
+    if(regex.test(string)) {
+      string = xmlUtils.replaceCodes(string);
+    }
+  }
 
   return string;
 }
