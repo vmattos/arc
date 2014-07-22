@@ -44,6 +44,7 @@ afcUtils.setExercises = function(section) {
 
   var sectionExercise = "[section Exercícios]\n";
   var openTagExercise = "[exercise]\n";
+  var closeTagExercise = "[/exercise]\n";
 
   var exercises = section.exercicios[0];
   var answers = {};
@@ -51,43 +52,50 @@ afcUtils.setExercises = function(section) {
   var openExercises = exercises['exercicio-aberto'];
   var multipleChoiceExercises = exercises['exercicio-multiplaEscolha'];
 
+
+
   var openQuestion = "[question]\n"
   var questions = "";
   var closeQuestion = "[/question]\n"
 
-  openExercises.forEach(function(openExercise) {
+  if(!!openExercises) {
+    openExercises.forEach(function(openExercise) {
 
-    questions += openQuestion;
+      questions += openQuestion;
 
-    var description = openExercise.enunciado[0];
+      var description = openExercise.enunciado[0];
 
-    questions += description + closeQuestion;
+      questions += description + closeQuestion;
 
-    answers[openExercise.numero] = openExercise.resposta;
+      answers[openExercise.numero] = openExercise.resposta;
 
-  });
-
-  multipleChoiceExercises.forEach(function(multipleChoiceExercise) {
-
-    questions += openQuestion;
-
-    var description = multipleChoiceExercise.enunciado[0];
-
-    var openList = "[list]\n";
-
-    var choices = multipleChoiceExercise.alternativas[0];
-
-    var tagChoices = openList;
-
-    choices.forEach(function(choice){
-      tagChoices += "* " + choice.texto + "\n";
     });
+  }
 
-    questions += description + tagChoices + closeQuestion;
 
-    answers[multipleChoiceExercise.numero] = multipleChoiceExercise.resposta;
+  if(!!multipleChoiceExercises) {
+    multipleChoiceExercises.forEach(function(multipleChoiceExercise) {
 
-  });
+      questions += openQuestion;
+
+      var description = multipleChoiceExercise.enunciado[0];
+
+      var openList = "[list]\n";
+
+      var choices = multipleChoiceExercise.alternativas[0].alternativa;
+
+      var tagChoices = openList;
+
+      choices.forEach(function(choice){
+        tagChoices += "* " + choice.texto[0].replace(/\n/, "") + "\n";
+      });
+
+      questions += description + tagChoices + closeQuestion;
+
+      answers[multipleChoiceExercise.numero] = multipleChoiceExercise.resposta;
+
+    });
+  }
 
   var text = sectionExercise + openTagExercise + questions + closeTagExercise;
 
