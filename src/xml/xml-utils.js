@@ -19,9 +19,8 @@ xmlUtils.parse = function(courseParams) {
       secoes.forEach(function(secao) {
         var explanation = secao.explicacao[0];
 
-        explanation = xmlUtils.parseCode(explanation);
-        explanation = parser.parseMiniCode(explanation);
-        explanation = parser.parseItalic(explanation);
+
+        explanation = xmlUtils.parseAfc(explanation);
 
         secao.explicacao[0] = explanation;
       });
@@ -49,6 +48,15 @@ xmlUtils.parseCode = function(string) {
   }
 
   this.codeGroups = codeGroups;
+
+  return string;
+}
+
+xmlUtils.parseAfc = function(string) {
+
+  string = xmlUtils.parseCode(string);
+  string = parser.parseMiniCode(string);
+  string = parser.parseItalic(string);
 
   return string;
 }
