@@ -28,9 +28,9 @@ afcUtils.createAfcs = function(courseParams) {
 
     var textExercises = afcUtils.setExercises(secao);
 
-    text = text + textExercises;
-
     text = xmlUtils.parseAfc(text);
+
+    text = text + textExercises;
 
     fs.writeFile(path, new Buffer(text));
   });
@@ -59,7 +59,7 @@ afcUtils.setExercises = function(section) {
 
   var openQuestion = "[question]\n"
   var questions = "";
-  var closeQuestion = "[/question]\n"
+  var closeQuestion = "\n[/question]\n"
 
   if(!!openExercises) {
     openExercises.forEach(function(openExercise) {
@@ -68,9 +68,9 @@ afcUtils.setExercises = function(section) {
 
       var description = openExercise.enunciado[0];
 
-      questions += description + closeQuestion;
+      questions += xmlUtils.parseAfc(description) + closeQuestion;
 
-      answers[openExercise.numero] = openExercise.resposta;
+      answers[openExercise.numero] = xmlUtils.parseAfc(openExercise.resposta);
 
     });
   }
@@ -83,19 +83,23 @@ afcUtils.setExercises = function(section) {
 
       var description = multipleChoiceExercise.enunciado[0];
 
-      var openList = "[list]\n";
+      var openList = "\n[list]\n";
+
+      var closeList = "\n[/list]\n";
 
       var choices = multipleChoiceExercise.alternativas[0].alternativa;
 
       var tagChoices = openList;
 
       choices.forEach(function(choice){
-        tagChoices += "* " + choice.texto[0].replace(/\n/, "") + "\n";
+        tagChoices += "* " + xmlUtils.parseAfc(choice.texto[0]).replace(/\n/, "") + "\n";
       });
 
-      questions += description + tagChoices + closeQuestion;
+      tagChoices += closeList;
 
-      answers[multipleChoiceExercise.numero] = multipleChoiceExercise.resposta;
+      questions += xmlUtils.parseAfc(description) + tagChoices + closeQuestion;
+
+      answers[multipleChoiceExercise.numero] = xmlUtils.parseAfc(multipleChoiceExercise.resposta);
 
     });
   }
