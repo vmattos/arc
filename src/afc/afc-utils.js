@@ -73,7 +73,7 @@ afcUtils.setExercises = function(section) {
 
       questions += xmlUtils.parseAfc(description) + closeQuestion;
 
-      answers[openExercise.numero] = xmlUtils.parseAfc(openExercise.resposta);
+      answers[openExercise.numero] = openExercise.resposta;
 
     });
   }
@@ -103,7 +103,7 @@ afcUtils.setExercises = function(section) {
 
       questions += xmlUtils.parseAfc(description) + tagChoices + closeQuestion;
 
-      answers[multipleChoiceExercise.numero] = xmlUtils.parseAfc(multipleChoiceExercise.resposta);
+      answers[multipleChoiceExercise.numero] = multipleChoiceExercise.resposta;
 
     });
   }
