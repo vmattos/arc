@@ -1,4 +1,5 @@
 var fs = require('fs')
+  , xmlUtils = require('../xml/xml-utils')
   , afcUtils = {};
 
 
@@ -28,6 +29,8 @@ afcUtils.createAfcs = function(courseParams) {
     var textExercises = afcUtils.setExercises(secao);
 
     text = text + textExercises;
+
+    text = xmlUtils.parseAfc(text);
 
     fs.writeFile(path, new Buffer(text));
   });

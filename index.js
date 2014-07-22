@@ -36,5 +36,7 @@ courseParams.on('newXml', function() {
 
     afcUtils.createDirectory(courseParams);
     afcUtils.createAfcs(courseParams);  
+
+    console.log(courseParams.afcs);
   }
 });
