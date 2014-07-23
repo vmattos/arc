@@ -27,4 +27,15 @@ parser.parseMiniCode = function(string) {
   return string;
 }
 
+parser.parseImages = function(string) {
+  var regexp = /<img src=".*\/(.*\.png)" \/>/;
+
+  if(regexp.test(string)) {
+    string = string.replace(regexp, "[img images/$1]");
+    console.log(string.replace(regexp, "[img images/$1]"))
+  }
+
+  return string;
+}
+
 module.exports = parser;
