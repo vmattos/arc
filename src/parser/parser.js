@@ -28,7 +28,7 @@ parser.parseMiniCode = function(string) {
 }
 
 parser.parseImages = function(string) {
-  var regexp = /<img src=".*\/(.*\.png)" \/>/;
+  var regexp = /<img src=".*\/(.*\.png)"[ ]?\/>/;
 
   for(var i=0; i < string.length; i++) {
     if(regexp.test(string)) {
