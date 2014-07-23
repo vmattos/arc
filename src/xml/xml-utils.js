@@ -58,6 +58,7 @@ xmlUtils.parseAfc = function(string) {
   string = xmlUtils.parseCode(string);
   string = parser.parseMiniCode(string);
   string = parser.parseItalic(string);
+  string = parser.parseBold(string);
 
   return string;
 }
