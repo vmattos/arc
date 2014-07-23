@@ -33,7 +33,6 @@ parser.parseImages = function(string) {
   for(var i=0; i < string.length; i++) {
     if(regexp.test(string)) {
       string = string.replace(regexp, "[img images/$1]");
-      console.log(string.replace(regexp, "[img images/$1]"))
     }
   }
 
