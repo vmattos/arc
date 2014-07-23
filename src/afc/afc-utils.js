@@ -29,7 +29,9 @@ afcUtils.createAfcs = function(courseParams) {
 
     var textExercises = afcUtils.setExercises(secao);
 
-    text = xmlUtils.parseAfc(text);
+    textExercises = xmlUtils.parseAfc(textExercises);
+
+    textExercises = xmlUtils.replaceCodes(textExercises);
 
     text = text + textExercises;
 
@@ -71,7 +73,7 @@ afcUtils.setExercises = function(section) {
 
       var description = openExercise.enunciado[0];
 
-      questions += xmlUtils.parseAfc(description) + closeQuestion;
+      questions += description + closeQuestion;
 
       answers[openExercise.numero] = openExercise.resposta;
 
@@ -96,12 +98,12 @@ afcUtils.setExercises = function(section) {
       var tagChoices = openList;
 
       choices.forEach(function(choice){
-        tagChoices += "* " + xmlUtils.parseAfc(choice.texto[0]).replace(/\n/, "") + "\n";
+        tagChoices += "* " + choice.texto[0].replace(/\n/, "") + "\n";
       });
 
       tagChoices += closeList;
 
-      questions += xmlUtils.parseAfc(description) + tagChoices + closeQuestion;
+      questions += description + tagChoices + closeQuestion;
 
       answers[multipleChoiceExercise.numero] = multipleChoiceExercise.resposta;
 
