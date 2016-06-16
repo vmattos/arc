@@ -6,10 +6,10 @@ UNIT_TESTS = test/unit/**/**/*Test.js
 CONSUMER_DRIVEN_TESTS = test/consumer-driven/**/**/*Test.js
 
 setup: clean
-	mkdir AFC
+	mkdir Markdown
 
 clean:
-	rm -rf AFC
+	rm -rf Markdown
 
 unit-test:
 	$(MOCHA_RUNNER) $(UNIT_TESTS)
