@@ -1,5 +1,5 @@
 var fs = require('fs')
-  , xmlUtils = require('../xml/xml-utils')
+  , xmlUtils = require('../xml/afc-xml-utils')
   , afcUtils = {};
 
 
@@ -8,7 +8,16 @@ afcUtils.createDirectory = function(courseParams) {
   var path = 'AFC/' + courseName;
 
   courseParams.path = path;
-  fs.mkdir( path, function(err) {
+  fs.mkdir(path, function(err) {
+    if (err) console.log(err);
+  });
+}
+
+afcUtils.createImageDirectory = function(courseParams) {
+  var courseName = courseParams.courseName;
+  var imagePath = 'AFC/' + courseName + '/images';
+
+  fs.mkdir(imagePath, function(err) {
     if (err) console.log(err);
   });
 }
@@ -25,13 +34,13 @@ afcUtils.createAfcs = function(courseParams) {
 
     var path = courseParams.path + '/' + title;
     
-    var text = afcUtils.setText(secao);
+    var text = afcUtils.getText(secao);
 
-    var textExercises = afcUtils.setExercises(secao);
+    var textExercises = afcUtils.getExercises(secao);
 
     textExercises = xmlUtils.parseAfc(textExercises);
-
     textExercises = xmlUtils.replaceCodes(textExercises);
+    textExercises = xmlUtils.replaceMiniCodes(textExercises);
 
     text = text + textExercises;
 
@@ -39,7 +48,7 @@ afcUtils.createAfcs = function(courseParams) {
   });
 }
 
-afcUtils.setText = function(section) {
+afcUtils.getText = function(section) {
 
   var chapter = '[chapter ' + section.titulo[0] + ']\n\n';
   var text = chapter + section.explicacao[0];
@@ -47,7 +56,7 @@ afcUtils.setText = function(section) {
   return text;
 }
 
-afcUtils.setExercises = function(section) {
+afcUtils.getExercises = function(section) {
 
   var sectionExercise = "[section Exercícios]\n";
   var openTagExercise = "[exercise]\n";

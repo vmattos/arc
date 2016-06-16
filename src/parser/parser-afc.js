@@ -35,7 +35,7 @@ parser.parseMiniCode = function(string) {
 
 parser.parseImages = function(string) {
 
-  var regexp = /<img src=".*\/(.*\.png)"[ ]?\/>/;
+  var regexp = /<img\s+src=".*\/(.*\.png)"\s?\/?>/;
 
   for(var i=0; i < string.length; i++) {
     if(regexp.test(string)) {
@@ -48,7 +48,7 @@ parser.parseImages = function(string) {
 
 parser.parseLinks = function(string) {
 
-  var regexp = /<a href="([\w:\/.-]+)".*>(.+)<\/a>/;
+  var regexp = /<a\s+href="([?=\w:\/.-]+)".*>(.+)<\/a>/;
 
   for(var i=0; i < string.length; i++) {
     if(regexp.test(string)) {
@@ -57,6 +57,25 @@ parser.parseLinks = function(string) {
   }
 
   return string;
+}
+
+parser.getImageLinks = function(string) {
+
+  var regexp = /<img\s+src="(http:\/\/s3.amazonaws.com\/[\w:\/.-]+)"\w*\s*\/?>/g,
+      match = regexp.exec(string), 
+      imagesLinkList = [];
+
+  while (match != null) {
+    imagesLinkList.push(match[1]);
+    match = regexp.exec(string);
+  }
+
+//  imagesLinkList.forEach(function(image) {
+//    console.log(image);
+//  });
+
+  return imagesLinkList;
+
 }
 
 module.exports = parser;
