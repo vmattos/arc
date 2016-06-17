@@ -59,9 +59,12 @@ parser.parseBold = function(string) {
 
 parser.parseMiniCode = function(string) {
 
+   var regexTagMiniCode = /<code>(.+?)<\/code>/;
+
   for (var i = 0; i < string.length; i++) {
-    string = string.replace("<code>", "`");
-    string = string.replace("</code>", "`");
+    if(regexTagMiniCode.test(string)) {
+      string = string.replace(regexTagMiniCode, "`$1`");
+    }
   }
 
   return string;
