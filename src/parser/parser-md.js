@@ -2,13 +2,20 @@ parser = {};
 
 parser.parseTitleTags = function(string) {
 
+  var regexTagH1 = /<h1>(.+?)<\/h1>/;
+  var regexTagH2 = /<h2>(.+?)<\/h2>/;
+  var regexTagH3 = /<h3>(.+?)<\/h3>/;
+
   for (var i = 0; i < string.length; i++) {
-    string = string.replace("<h1>", "#");
-    string = string.replace("</h1>", "");
-    string = string.replace("<h2>", "##");
-    string = string.replace("</h2>", "");
-    string = string.replace("<h3>", "###");
-    string = string.replace("</h3>", "");
+    if(regexTagH1.test(string)) {
+      string = string.replace(regexTagH1, "# $1");
+    }
+    if(regexTagH2.test(string)) {
+      string = string.replace(regexTagH2, "## $1");
+    }
+    if(regexTagH3.test(string)) {
+      string = string.replace(regexTagH3, "### $1");
+    }
   }
 
   return string;
@@ -16,12 +23,17 @@ parser.parseTitleTags = function(string) {
 
 parser.parseItalic = function(string) {
 
+  var regexTagI = /<i>(.+?)<\/i>/;
+  var regexTagEm = /<em>(.+?)<\/em>/;
+
   for (var i = 0; i < string.length; i++) {
     string = string.replace(/\*([^\*\n]*)\*/, "_$1_");
-    string = string.replace("<i>", "_");
-    string = string.replace("</i>", "_");
-    string = string.replace("<em>", "_");
-    string = string.replace("</em>", "_");
+    if(regexTagI.test(string)) {
+      string = string.replace(regexTagI, "_$1_");
+    }
+    if(regexTagEm.test(string)) {
+      string = string.replace(regexTagEm, "_$1_");
+    }
   }
 
   return string;
@@ -29,12 +41,17 @@ parser.parseItalic = function(string) {
 
 parser.parseBold = function(string) {
 
+  var regexTagB = /<b>(.+?)<\/b>/;
+  var regexTagStrong = /<strong>(.+?)<\/strong>/;
+
   for (var i = 0; i < string.length; i++) {
     string = string.replace("__", "**");
-    string = string.replace("<b>", "**");
-    string = string.replace("</b>", "**");
-    string = string.replace("<strong>", "**");
-    string = string.replace("</strong>", "**");
+    if(regexTagB.test(string)) {
+      string = string.replace(regexTagB, "**$1**");
+    }
+    if(regexTagStrong.test(string)) {
+      string = string.replace(regexTagStrong, "**$1**");
+    }
   }
 
   return string;
@@ -123,7 +140,7 @@ parser.parseMarkdownLinks = function(string) {
 
 parser.getImageLinks = function(string) {
 
-  var regexp = /<img\s+src="(http:\/\/s3.amazonaws.com\/[\w:\/.-]+)"\w*\s*\/?>/g,
+  var regexp = /<img\s+src="(http[s]?:\/\/s3.amazonaws.com\/[\w:\/.-]+)"\w*\s*\/?>/g,
       match = regexp.exec(string), 
       imagesLinkList = [];
 

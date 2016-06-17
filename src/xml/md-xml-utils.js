@@ -8,8 +8,6 @@ var parseString = require('xml2js').parseString
 xmlUtils.codeGroups = [];
 xmlUtils.miniCodeGroups = [];
 
-var listImageLinks = [];
-
 xmlUtils.parse = function(courseParams) {
 
   for (i in courseParams.xmls) {
@@ -82,8 +80,7 @@ xmlUtils.parseMiniCode = function(string) {
 
 xmlUtils.parseMd = function(string, courseParams) {
 
-  listImageLinks = parser.getImageLinks(string);
-  xmlUtils.downloadImages(listImageLinks, courseParams);
+  xmlUtils.downloadImages(string, courseParams);
 
   string = xmlUtils.parseCode(string);
   string = parser.parseMiniCode(string);
@@ -130,7 +127,9 @@ xmlUtils.replaceMiniCodes = function(string) {
   return string;
 }
 
-xmlUtils.downloadImages = function(listImageLinks, courseParams) {
+xmlUtils.downloadImages = function(string, courseParams) {
+
+  var listImageLinks = parser.getImageLinks(string);
 
   var courseName = courseParams.courseName, 
       imagePath = 'Markdown/' + courseName + '/images',
