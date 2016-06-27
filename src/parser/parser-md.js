@@ -2,9 +2,9 @@ parser = {};
 
 parser.parseTitleTags = function(string) {
 
-  var regexTagH1 = /<h1>(.+?)<\/h1>/;
-  var regexTagH2 = /<h2>(.+?)<\/h2>/;
-  var regexTagH3 = /<h3>(.+?)<\/h3>/;
+  var regexTagH1 = /<h1>(.+?)<\/h1>/,
+      regexTagH2 = /<h2>(.+?)<\/h2>/,
+      regexTagH3 = /<h3>(.+?)<\/h3>/;
 
   for (var i = 0; i < string.length; i++) {
     if(regexTagH1.test(string)) {
@@ -23,8 +23,8 @@ parser.parseTitleTags = function(string) {
 
 parser.parseItalic = function(string) {
 
-  var regexTagI = /<i>(.+?)<\/i>/;
-  var regexTagEm = /<em>(.+?)<\/em>/;
+  var regexTagI = /<i>(.+?)<\/i>/,
+      regexTagEm = /<em>(.+?)<\/em>/;
 
   for (var i = 0; i < string.length; i++) {
     string = string.replace(/\*([^\*\n]*)\*/, "_$1_");
@@ -41,8 +41,8 @@ parser.parseItalic = function(string) {
 
 parser.parseBold = function(string) {
 
-  var regexTagB = /<b>(.+?)<\/b>/;
-  var regexTagStrong = /<strong>(.+?)<\/strong>/;
+  var regexTagB = /<b>(.+?)<\/b>/,
+      regexTagStrong = /<strong>(.+?)<\/strong>/;
 
   for (var i = 0; i < string.length; i++) {
     string = string.replace("__", "**");
@@ -59,7 +59,7 @@ parser.parseBold = function(string) {
 
 parser.parseMiniCode = function(string) {
 
-   var regexTagMiniCode = /<code>(.+?)<\/code>/;
+  var regexTagMiniCode = /<code>(.+?)<\/code>/;
 
   for (var i = 0; i < string.length; i++) {
     if(regexTagMiniCode.test(string)) {
@@ -85,8 +85,8 @@ parser.parseImages = function(string) {
 
 parser.parseLinks = function(string) {
 
-  var regexTagA = /<a\s+href="([?=\w:\/.-]+)".*>(.+)<\/a>/;
-  var regexMd = /\[(\w+)\]\(([?=\w:\/.-]+)\)/;
+  var regexTagA = /<a\s+href="([?=\w:\/.-]+)".*>(.+)<\/a>/,
+      regexMd = /\[(\w+)\]\(([?=\w:\/.-]+)\)/;
 
   for(var i=0; i < string.length; i++) {
     if(regexTagA.test(string)) {
@@ -137,7 +137,7 @@ parser.parseMarkdownLinks = function(string) {
     }
   }
 
-  return string
+  return string;
 
 }
 

@@ -10,6 +10,8 @@ var wsUtils = require('./src/ws/ws-utils.js')
 // Params to generate full Markdown File
 var CourseParams = function() {
   this.courseName =  options.courseName || courses[0],
+  this.path = 'Markdown/' + this.courseName,
+  this.imagesPath = this.path + '/images',
   this.xmls = [],
   this.mds = [],
   this.totalSections = []

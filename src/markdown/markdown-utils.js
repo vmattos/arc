@@ -4,22 +4,37 @@ var fs = require('fs')
 
 
 mdUtils.createDirectory = function(courseParams) {
-  var courseName = courseParams.courseName;
-  var path = 'Markdown/' + courseName;
+  var path = courseParams.path;
 
-  courseParams.path = path;
   fs.mkdir(path, function(err) {
     if (err) console.log(err);
   });
 }
 
 mdUtils.createImageDirectory = function(courseParams) {
-  var courseName = courseParams.courseName;
-  var imagePath = 'Markdown/' + courseName + '/images';
+  var imagesPath = courseParams.imagesPath;
 
-  fs.mkdir(imagePath, function(err) {
+  fs.mkdir(imagesPath, function(err) {
     if (err) console.log(err);
   });
+}
+
+mdUtils.removeAccents = function(string) {
+
+  var map = { 
+    "â":"a","Â":"A","à":"a","À":"A","á":"a","Á":"A","ã":"a","Ã":"A",
+    "ê":"e","Ê":"E","è":"e","È":"E","é":"e","É":"E",
+    "î":"i","Î":"I","ì":"i","Ì":"I","í":"i","Í":"I",
+    "ô":"o","Ô":"O","ò":"o","Ò":"O","ó":"o","Ó":"O","õ":"o","Õ":"O",
+    "û":"u","Û":"U","ù":"u","Ù":"U","ú":"u","Ú":"U","ü":"u","Ü":"U",
+    "ç":"c","Ç":"C"
+  };
+
+  string = string.replace(/[\W\[\] ]/g, function(a) {
+    return map[a]||a;
+  });
+
+  return string;
 }
 
 mdUtils.createMds = function(courseParams) {
@@ -27,16 +42,17 @@ mdUtils.createMds = function(courseParams) {
   var secoes = courseParams.totalSections;
 
   secoes.forEach(function(secao, index) {
-    var prefix = index < 9 ? '0' + (index+1) : '' + (index+1);
-    var sectionTitle = secao.titulo[0];
-    var title = prefix + '-' + sectionTitle.replace(/ /g, '-')
+
+    var prefix = index < 9 ? '0' + (index+1) : '' + (index+1),
+        sectionTitle = secao.titulo[0],
+        title = prefix + '-' + sectionTitle.replace(/ /g, '-');
+
+    title = mdUtils.removeAccents(title);
     title += '.md';
 
-    var path = courseParams.path + '/' + title;
-    
-    var text = mdUtils.getText(secao);
-
-    var textExercises = mdUtils.getExercises(secao);
+    var path = courseParams.path + '/' + title,
+        text = mdUtils.getText(secao),
+        textExercises = mdUtils.getExercises(secao);
 
     textExercises = xmlUtils.parseMd(textExercises, courseParams);
     textExercises = xmlUtils.replaceCodes(textExercises);
@@ -50,8 +66,8 @@ mdUtils.createMds = function(courseParams) {
 
 mdUtils.getText = function(section) {
 
-  var chapter = '# ' + section.titulo[0] + '\n\n';
-  var text = chapter + section.explicacao[0];
+  var chapter = '# ' + section.titulo[0] + '\n\n',
+      text = chapter + section.explicacao[0];
 
   return text;
 }
@@ -74,9 +90,8 @@ mdUtils.getExercises = function(section) {
 
     openExercises.forEach(function(openExercise) {
 
-      var enunciado = openExercise.enunciado[0].replace("\n", "");
-
-      var description = openQuestion() + enunciado;
+      var enunciado = openExercise.enunciado[0].replace("\n", ""), 
+          description = openQuestion() + enunciado;
 
       questions += description;
 
@@ -89,11 +104,9 @@ mdUtils.getExercises = function(section) {
     
     multipleChoiceExercises.forEach(function(multipleChoiceExercise) {
 
-      var enunciado = multipleChoiceExercise.enunciado[0].replace("\n", "");
-
-      var description = openQuestion() + enunciado;
-
-      var choices = multipleChoiceExercise.alternativas[0].alternativa;
+      var enunciado = multipleChoiceExercise.enunciado[0].replace("\n", ""),
+          description = openQuestion() + enunciado,
+          choices = multipleChoiceExercise.alternativas[0].alternativa;
 
       choices.forEach(function(choice){
         description += "\n* " + choice.texto[0].replace(/\n/, "");

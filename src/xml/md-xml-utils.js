@@ -35,13 +35,13 @@ xmlUtils.parse = function(courseParams) {
 }
 
 xmlUtils.parseCode = function(string) {
-  var mdCode = '```';
-  var codeGroups = [];
+  var mdCode = '```',
+      codeGroups = [];
 
   while(string.indexOf(mdCode) != -1) {
-    var index1 = string.indexOf(mdCode);
-    var index2 = string.indexOf(mdCode, index1+1);
-    var codeGroup = string.substring(index1+3, index2);
+    var index1 = string.indexOf(mdCode),
+        index2 = string.indexOf(mdCode, index1+1),
+        codeGroup = string.substring(index1+3, index2);
 
     codeGroups.push(codeGroup);
 
@@ -57,13 +57,13 @@ xmlUtils.parseCode = function(string) {
 }
 
 xmlUtils.parseMiniCode = function(string) {
-  var mdMiniCode = '`';
-  var miniCodeGroups = [];
+  var mdMiniCode = '`',
+      miniCodeGroups = [];
 
   while(string.indexOf(mdMiniCode) != -1) {
-    var index1 = string.indexOf(mdMiniCode);
-    var index2 = string.indexOf(mdMiniCode, index1+1);
-    var miniCodeGroup = string.substring(index1+1, index2);
+    var index1 = string.indexOf(mdMiniCode),
+        index2 = string.indexOf(mdMiniCode, index1+1),
+        miniCodeGroup = string.substring(index1+1, index2);
 
     miniCodeGroups.push(miniCodeGroup);
 
@@ -129,10 +129,8 @@ xmlUtils.replaceMiniCodes = function(string) {
 
 xmlUtils.downloadImages = function(string, courseParams) {
 
-  var listImageLinks = parser.getImageLinks(string);
-
-  var courseName = courseParams.courseName, 
-      imagePath = 'Markdown/' + courseName + '/images',
+  var listImageLinks = parser.getImageLinks(string),
+      imagesPath = courseParams.imagesPath,
       download = function(uri, filename, callback) {
         request.head(uri, function(err, res, body){
           request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
@@ -142,7 +140,7 @@ xmlUtils.downloadImages = function(string, courseParams) {
   listImageLinks.forEach(function(imageLink) {
     var regexp = /([\w-]+\.png)/g, 
         match = regexp.exec(imageLink), 
-        filename = imagePath + '/' + match[1];
+        filename = imagesPath + '/' + match[1];
 
     download(imageLink, filename, function(){
       console.log('Downloading image from: ' + imageLink);
