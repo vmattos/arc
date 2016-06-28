@@ -142,7 +142,7 @@ parser.parseMarkdownLinks = function(string) {
 
 parser.getImageUrls = function(string) {
 
-  var regexp = /<img\s+src="(http[s]?:\/\/s3.amazonaws.com\/[\w:\/.-]+)"\w*\s*\/?>/g,
+  var regexp = /<img\s+src="(http[s]?:\/\/(caelum-online-public.)?s3.amazonaws.com\/[\w:\/.-]+)"\w*\s*\/?>/g,
       match = regexp.exec(string), 
       imagesUrlsList = [];
 
