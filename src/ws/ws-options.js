@@ -7,9 +7,8 @@ var wsOptions = {
 
   courses: {
     module1: curso
-    // ,
-    // module2: "php-mysql-e-fundamentos-da-web-parte-2",
-    // module3: "codeigniter"
+    // , module2: "php-mysql-e-fundamentos-da-web-parte-2"
+    // , module3: "codeigniter"
   },
   //Optional: Name for the full-course 
   courseName: curso
