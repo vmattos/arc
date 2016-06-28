@@ -129,21 +129,22 @@ xmlUtils.replaceMiniCodes = function(string) {
 
 xmlUtils.downloadImages = function(string, courseParams) {
 
-  var listImageLinks = parser.getImageLinks(string),
+  var listImageUrls = parser.getImageUrls(string),
       imagesPath = courseParams.imagesPath,
-      download = function(uri, filename, callback) {
-        request.head(uri, function(err, res, body){
-          request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+      download = function(url, filename, callback) {
+        request.head(url, function(err, res, body) {
+          request(url).pipe(fs.createWriteStream(filename)).on('close', callback);
         });
       };
 
-  listImageLinks.forEach(function(imageLink) {
+  listImageUrls.forEach(function(imageUrl) {
     var regexp = /([\w-]+\.png)/g, 
-        match = regexp.exec(imageLink), 
-        filename = imagesPath + '/' + match[1];
+        match = regexp.exec(imageUrl), 
+        imageName = match[1],
+        imageDir = imagesPath + '/' + imageName;
 
-    download(imageLink, filename, function(){
-      console.log('Downloading image from: ' + imageLink);
+    download(imageUrl, imageDir, function() {
+      console.log('Downloading image from: ' + imageUrl);
     });
   });
 }

@@ -5,13 +5,15 @@ var wsUtils = require('./src/ws/ws-utils.js')
   , util = require('util')
   , EventEmitter = require('events').EventEmitter
   , courses = Object.keys(options.courses)
-  , urls = wsUtils.getUrls(options);
+  , urls = wsUtils.getUrls(options)
+  , folder = 'Markdown/'
+  , imagesFolder = '/images';
 
 // Params to generate full Markdown File
 var CourseParams = function() {
   this.courseName =  options.courseName || courses[0],
-  this.path = 'Markdown/' + this.courseName,
-  this.imagesPath = this.path + '/images',
+  this.path = folder + this.courseName,
+  this.imagesPath = this.path + imagesFolder,
   this.xmls = [],
   this.mds = [],
   this.totalSections = []

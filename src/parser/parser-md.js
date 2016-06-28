@@ -104,18 +104,18 @@ parser.getMarkdownLinks = function(string) {
 
   var regexLink = /(\[\d\]:\s?)(.*)/g,
       match = regexLink.exec(string),
-      markdownLinkList = [];
+      markdownLinksList = [];
 
   while (match != null) {
-    markdownLinkList.push(match[2]);
+    markdownLinksList.push(match[2]);
     match = regexLink.exec(string);
   }
 
-//  markdownLinkList.forEach(function(image) {
-//    console.log(image);
+//  markdownLinksList.forEach(function(link) {
+//    console.log(link);
 //  });
 
-  return markdownLinkList;
+  return markdownLinksList;
 
 }
 
@@ -123,13 +123,12 @@ parser.parseMarkdownLinks = function(string) {
 
   var regexMd = /\[(.*?)\](\[\d\])/,
       regexLink = /\[\d\]:\s?.*/,
-      markdownLinkList = parser.getMarkdownLinks(string),
+      markdownLinksList = parser.getMarkdownLinks(string),
       index = 0;
   
   for(var i=0; i < string.length; i++) {
     if(regexMd.test(string)) {
-      string = string.replace(regexMd, "$1: " + markdownLinkList[index]);
-      string = string.replace(regexLink, "");
+      string = string.replace(regexMd, "$1: " + markdownLinksList[index]);
       index++;
     }
     if(regexLink.test(string)) {
@@ -141,22 +140,22 @@ parser.parseMarkdownLinks = function(string) {
 
 }
 
-parser.getImageLinks = function(string) {
+parser.getImageUrls = function(string) {
 
   var regexp = /<img\s+src="(http[s]?:\/\/s3.amazonaws.com\/[\w:\/.-]+)"\w*\s*\/?>/g,
       match = regexp.exec(string), 
-      imagesLinkList = [];
+      imagesUrlsList = [];
 
   while (match != null) {
-    imagesLinkList.push(match[1]);
+    imagesUrlsList.push(match[1]);
     match = regexp.exec(string);
   }
 
-//  imagesLinkList.forEach(function(image) {
-//    console.log(image);
+//  imagesUrlsList.forEach(function(imageUrl) {
+//    console.log(imageUrl);
 //  });
 
-  return imagesLinkList;
+  return imagesUrlsList;
 
 }
 
