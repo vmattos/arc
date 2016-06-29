@@ -138,7 +138,7 @@ xmlUtils.downloadImages = function(string, courseParams) {
       };
 
   listImageUrls.forEach(function(imageUrl) {
-    var regexp = /([\w-]+\.png)/g, 
+    var regexp = /([\w\-\+\.\%]+\.png)/g, 
         match = regexp.exec(imageUrl), 
         imageName = match[1],
         imageDir = imagesPath + '/' + imageName;
