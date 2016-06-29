@@ -80,11 +80,12 @@ xmlUtils.parseMiniCode = function(string) {
 
 xmlUtils.parseMd = function(string, courseParams) {
 
-  xmlUtils.downloadImages(string, courseParams);
-
   string = xmlUtils.parseCode(string);
   string = parser.parseMiniCode(string);
   string = xmlUtils.parseMiniCode(string);
+
+  xmlUtils.downloadImages(string, courseParams);
+
   string = parser.parseTitleTags(string);
   string = parser.parseItalic(string);
   string = parser.parseBold(string);
@@ -138,7 +139,7 @@ xmlUtils.downloadImages = function(string, courseParams) {
       };
 
   listImageUrls.forEach(function(imageUrl) {
-    var regexp = /([\w\-\+\.\%]+\.png)/g, 
+    var regexp = /([^\/]+.png$)/g, 
         match = regexp.exec(imageUrl), 
         imageName = match[1],
         imageDir = imagesPath + '/' + imageName;

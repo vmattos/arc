@@ -85,8 +85,8 @@ parser.parseImages = function(string) {
 
 parser.parseLinks = function(string) {
 
-  var regexTagA = /<a\s+href="([?=\w:\/.-]+)".*>(.+)<\/a>/,
-      regexMd = /\[(\w+)\]\(([?=\w:\/.-]+)\)/;
+  var regexTagA = /<a[\s]+href="([^"]*)".*>(.*)<\/a>/,
+      regexMd = /\[(.*?)\]\((.*?)\)/;
 
   for(var i=0; i < string.length; i++) {
     if(regexTagA.test(string)) {
@@ -102,7 +102,7 @@ parser.parseLinks = function(string) {
 
 parser.getMarkdownLinks = function(string) {
 
-  var regexLink = /(\[\d\]:\s?)(.*)/g,
+  var regexLink = /(\[\d+\]:[\s]?)(.*)/g,
       match = regexLink.exec(string),
       markdownLinksList = [];
 
@@ -121,8 +121,8 @@ parser.getMarkdownLinks = function(string) {
 
 parser.parseMarkdownLinks = function(string) {
 
-  var regexMd = /\[(.*?)\](\[\d\])/,
-      regexLink = /\[\d\]:\s?.*/,
+  var regexMd = /\[(.*?)\](\[\d+\])/,
+      regexLink = /\[\d+\]:[\s]?.*/,
       markdownLinksList = parser.getMarkdownLinks(string),
       index = 0;
   
@@ -142,7 +142,7 @@ parser.parseMarkdownLinks = function(string) {
 
 parser.getImageUrls = function(string) {
 
-  var regexp = /<img\s+src="(http[s]?:\/\/(caelum-online-public.)?s3.amazonaws.com\/[\w\:\/\.\-\+\%]+)"\w*\s*\/?>/g,
+  var regexp = /<img[\s]+src="(.*?)".*?[\/]?>/g,
       match = regexp.exec(string), 
       imagesUrlsList = [];
 
